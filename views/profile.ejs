@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <script src="/profile.js" defer></script>
+    <title>
+        <%= name %> profile page
+    </title>
+    <style>
+        body {
+            margin-top: 20px;
+            color: #1a202c;
+            text-align: left;
+            background-color: #e2e8f0;
+        }
+
+        .main-body {
+            padding: 15px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .gutters-sm>.col,
+        .gutters-sm>[class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .mb-3,
+        .my-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100% !important;
+        }
+
+        .shadow-none {
+            box-shadow: none !important;
+        }
+
+        .custom-pop {
+            position: fixed;
+            top: 30px;
+            margin-left: 50%;
+            -webkit-animation: popup 3s ease-in-out;
+            animation: popup 3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-body">
+            <nav aria-label="breadcrumb" class="main-breadcrumb d-flex justify-content-between">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/home">Home</a></li>/
+                </ol>
+                <!-- <div class="ms-auto mb-4 d-flex">
+                    <input type="search" placeholder="search for events" class="ms-auto rounded-pill"
+                        id="searchInProfile">
+                </div> -->
+            </nav>
+            <div class="gutters-sm row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="/user.svg" alt="Admin" class="rounded-circle" width="150">
+                                <div class="mt-3">
+                                    <h4>
+                                        <%= name %>
+                                    </h4>
+                                </div>
+                                <button id="addEvents" class="btn btn-dark btn-outline-info">add events</button><br>
+                                <button id="logout" class="btn btn-outline-danger btn-dark">log
+                                    out</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8" id="eventsCard">
+                    <% if (events.length>0) { %>
+                        <% events.forEach(element=> { %>
+                            <div class="card my-3" data-iodFF="<%= element.ID %>">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column align-items-start">
+                                        <h4>
+                                            <%= element.eventTitle %> <span class="text-secondary fs-6">posted at: <%=
+                                                        element.created_at %></span>
+                                        </h4>
+                                        <%= element.userName %>
+                                            <div class="d-flex justify-content-evenly w-100 my-3">
+                                                <div>
+                                                    date :<small class="text-info">
+                                                        <%= element.eventDate %>
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    location :<small class="text-info">
+                                                        <%= element.location %>
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <% if (element.maxMembers) { %>
+                                                        max size :<small class="text-success">2933</small>
+                                                        <% }else{ %>
+                                                            max size :<small class="text-success fw-bold">no
+                                                                limit</small>
+                                                            <% } %>
+                                                </div>
+                                            </div>
+                                            <div class="my-2">
+                                                <%= element.eventDescription %>
+                                            </div>
+                                            <div>
+                                                <% if (element.maxMembers) { %>
+                                                    available seats: <small class="text-success">2933</small>
+                                                    <% } %>
+                                            </div>
+                                    </div>
+                                    <button class="w-100 btn btn-dark btn-outline-danger delete">leave event</button>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <% } else{%>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex flex-column align-items-start">
+                                                <span>no events</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
