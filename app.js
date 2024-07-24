@@ -23,7 +23,7 @@ const connection = createConnection({
 // establish the connection
 connection.connect();
 
-// set cookie setter fun
+// set cookie setter function
 
 const cookieSetter = (MRes, name, val) => {
   MRes.cookie(name, val, {
@@ -177,6 +177,12 @@ app.get("/profile", (MReq, MRes) => {
   if (!MReq.cookies.JID) {
     return MRes.redirect("/logIn");
   }
+  let q3 = `
+  SELECT e.ID , COUNT(eb.ID) attendance FROM events_booking eb
+  inner join events e 
+  on eb.eventID = e.ID
+  GROUP by e.ID
+  `;
   let qq = `
   SELECT u.userName  , e.* , eb.ID as joined
   FROM events_booking eb
@@ -195,10 +201,13 @@ app.get("/profile", (MReq, MRes) => {
     connection.query(q, (e, r) => {
       if (e) return console.log("error " + e.message);
       console.log(r);
-      MRes.render("profile", {
-        name: r[0].userName,
-        rule: r[0].userType,
-        events: result,
+      connection.query(q3, (error2, result2) => {
+        MRes.render("profile", {
+          name: r[0].userName,
+          rule: r[0].userType,
+          events: result,
+          attendance: result2,
+        });
       });
     });
   });

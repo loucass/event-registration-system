@@ -143,34 +143,46 @@
                                         <div>
                                             <% if (element.maxMembers) { %>
                                                 available seats: <small class="fw-bold text-success">
-                                                    <% attendance.forEach(element2=> { %>
-                                                        <% if (element2.ID==element.ID ) { %>
-                                                            <%= element.maxMembers - element2.attendance %>
-                                                                <% } %>
-                                                                    <% }) %>
+                                                    <% if (attendance.length){ %>
+                                                        <% attendance.forEach(element2=> { %>
+                                                            <% if (element2.ID==element.ID ) { %>
+                                                                <%= element.maxMembers - element2.attendance %>
+                                                                    <% } %>
+                                                                        <% }) %>
+                                                                            <% }else{ %>
+                                                                                <%= element.maxMembers %>
+                                                                                    <% } %>
                                                 </small>
                                                 <% } %>
                                         </div>
                                 </div>
                                 <% if (element.joined==null) { %>
                                     <% if (element.maxMembers) { %>
-                                        <% attendance.forEach(element2=> { %>
-                                            <% if (element2.ID==element.ID ) { %>
-                                                <% let total=element.maxMembers - element2.attendance %>
-                                                    <% if (total>0){ %>
-                                                        <button class="w-100 btn btn-dark btn-outline-info join">join
-                                                            event</button>
-                                                        <% }else{ %>
-                                                            <span class='text-danger fw-bold'>no more seats</span>
-                                                            <% } %>
-                                                                <% }})}else{ %>
-                                                                    <button
-                                                                        class="w-100 btn btn-dark btn-outline-info join">join
-                                                                        event</button>
-                                                                    <% } %>
+                                        <% if (attendance.length){ %>
+                                            <% attendance.forEach(element2=> { %>
+                                                <% if (element2.ID==element.ID ) { %>
+                                                    <% let total=element.maxMembers - element2.attendance %>
+                                                        <% if (total>0){ %>
+                                                            <button
+                                                                class="w-100 btn btn-dark btn-outline-info join">join
+                                                                event</button>
+                                                            <% }else{ %>
+                                                                <span class='text-danger fw-bold'>no more seats</span>
+                                                                <% } %>
+                                                                    <% }}) %>
                                                                         <% }else{ %>
-                                                                            <span class='text-success'>joined</span>
-                                                                            <% } %>
+                                                                            <button
+                                                                                class="w-100 btn btn-dark btn-outline-info join">join
+                                                                                event</button>
+                                                                            <% }}else{ %>
+                                                                                <button
+                                                                                    class="w-100 btn btn-dark btn-outline-info join">join
+                                                                                    event</button>
+                                                                                <% } %>
+                                                                                    <% }else{ %>
+                                                                                        <span
+                                                                                            class='text-success'>joined</span>
+                                                                                        <% } %>
                             </div>
                         </div>
                         <% }) %>

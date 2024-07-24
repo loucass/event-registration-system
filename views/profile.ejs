@@ -135,7 +135,9 @@
                                                 </div>
                                                 <div>
                                                     <% if (element.maxMembers) { %>
-                                                        max size :<small class="text-success">2933</small>
+                                                        max size :<small class="text-success">
+                                                            <%= element.maxMembers %>
+                                                        </small>
                                                         <% }else{ %>
                                                             max size :<small class="text-success fw-bold">no
                                                                 limit</small>
@@ -147,7 +149,17 @@
                                             </div>
                                             <div>
                                                 <% if (element.maxMembers) { %>
-                                                    available seats: <small class="text-success">2933</small>
+                                                    available seats: <small class="fw-bold text-success">
+                                                        <% if (attendance.length){ %>
+                                                            <% attendance.forEach(element2=> { %>
+                                                                <% if (element2.ID==element.ID ) { %>
+                                                                    <%= element.maxMembers - element2.attendance %>
+                                                                        <% } %>
+                                                                            <% }) %>
+                                                                                <% }else{ %>
+                                                                                    <%= element.maxMembers %>
+                                                                                        <% } %>
+                                                    </small>
                                                     <% } %>
                                             </div>
                                     </div>
